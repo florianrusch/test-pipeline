@@ -1,0 +1,23 @@
+name: Build Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app:
+          - name: first-name
+          - name: second-name
+    steps:
+    - run: echo "the-out=${{matrix.app.name}}" >> "$GITHUB_OUTPUT"
+
+  second-job:
+    runs-on: ubuntu-latest
+    needs: first-job
+    steps:
+    - run: echo "${{ needs.first-job.outputs.the-out }}"
