@@ -13,6 +13,8 @@ jobs:
         app:
           - name: first-name
           - name: second-name
+    outputs:
+      the-out: ${{ steps.step1.the-out }}
     steps:
     - id: step1
       run: echo "the-out=${{matrix.app.name}}" >> "$GITHUB_OUTPUT"
