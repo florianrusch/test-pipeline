@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: Dump needs context
         env:
-          NEED_CONTEXT: ${{ toJson(needs.first-job.outpus.the-out) }}
+          NEED_CONTEXT: ${{ toJson(needs.first-job.outputs.the-out) }}
         run: echo "$NEED_CONTEXT"
       - name: Dump needs context
         env:
