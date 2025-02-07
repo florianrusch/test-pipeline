@@ -13,11 +13,16 @@ jobs:
         app:
           - name: first-name
           - name: second-name
+    outputs:
+      ${{ matrix.name }}: ${{ steps.step1.outputs.the-out }}
     steps:
-    - run: echo "the-out=${{matrix.app.name}}" >> "$GITHUB_OUTPUT"
+    - id: step1
+      run: echo "the-out=${{matrix.app.name}}" >> "$GITHUB_OUTPUT"
 
   second-job:
     runs-on: ubuntu-latest
     needs: first-job
     steps:
-    - run: echo "${{ needs.first-job[0].outputs.the-out }}"
+    - run: |
+        #echo "${{ needs.first-job[0].outputs.the-out }}"
+        echo "${{ needs.first-job.outputs.first-name }}"
